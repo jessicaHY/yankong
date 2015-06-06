@@ -14,7 +14,7 @@ AV.Cloud.define("roleInit", function(req, res) {
     user.set("nickName", "admin");
     user.set("sign", "I am admin");
     user.set("status", 0);
-    user.set("gendar", 0);
+    user.set("sex", 0);
     user.set("extra", "111111");
 
     user.signUp(null, {
