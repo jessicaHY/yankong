@@ -6,21 +6,22 @@
 exports.run = function(router){
 
     router.get('/auth', function(req, res){
-        res.render('auth/login', {
+        res.render('login', {
             title: '登录'
         });
 
     });
 
     router.post('/auth', function(req, res){
-        AV.User.logIn(req.body.username, req.body.password)
+        console.log(req.body.mobile, req.body.password)
+        AV.User.logIn(req.body.mobile, req.body.password)
             .then(function(user){
 
                 res.cookie('username', user.getUsername());
                 res.cookie('uid', user.id);
-                res.redirect( req.param('backurl') || '/' );
-            },function(){
-
+                res.redirect( req.params.backurl || '/' );
+            },function(err){
+                console.dir(arguments)
                 res.redirect('/auth');
             });
     });

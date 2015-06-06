@@ -2,6 +2,7 @@
  * Created by luojuan on 2015/6/6.
  */
 
+var fs = require('fs');
 exports.run = function(router) {
     router.post('/upload/post', function(req, res) {
         var token = req.body.token;

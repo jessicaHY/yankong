@@ -4,7 +4,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var multer = require('multer');
-var fs = require('fs');
+var swig = require('swig');
 var avosExpressCookieSession = require('avos-express-cookie-session');
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -12,8 +12,9 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(multer()); // for parsing multipart/form-data
 
 // App 全局配置
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');    // 设置 template 引擎
 app.set('views','cloud/views');   // 设置模板目录
-app.set('view engine', 'swig');    // 设置 template 引擎
 //app.use(express.bodyParser());    // 读取请求 body 的中间件
 
 app.locals.TITILE = '颜控管理后台';
