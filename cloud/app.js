@@ -35,7 +35,7 @@ require('cloud/routes/index').run(app);
 require('cloud/routes/role').run(app);
 require('cloud/routes/login').run(app);
 require('cloud/routes/manageUser').run(app);
+require('cloud/routes/manageUser').run(app);
 
-require('cloud/routes/error').run(app);
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
 app.listen();

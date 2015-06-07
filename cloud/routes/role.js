@@ -11,13 +11,13 @@ exports.run = function(router){
      * 工作人员
      */
 
-    router.get('/role/staff', restrict, function(req, res){
+    router.get('/manage/staff/list', restrict, function(req, res){
 
         new AV.Query(AV.Role).equalTo('name','staff').first({
             success: function( role ){
                 role.getUsers().query().find().then(function( data ){
 
-                    res.render('role/staff', {
+                    res.render('staff', {
                         title: "工作人员",
                         staffList: data
                     });

@@ -6,9 +6,37 @@
 </head>
 <body style="text-align: center">
 {% include "inc/_nav.html" %}
-<div class="container-fluid">
-   <a class="btn btn-default" href="#" role="button">添加</a>
+<div class="container-fluid" style="padding-top: 60px;">
+   <a class="btn btn-default" href="javascript:;" role="button" id="addBtn">添加</a>
+    {{staffList}} aaaa
+    <table class="table table-bordered" id="userTable">
+        <tr>
+            <td>用户Id</td>
+            <td>手机号</td>
+            <td>昵称</td>
+            <td>性别</td>
+            <td>标签</td>
+            <td>操作</td>
+        </tr>
+        {% for user in staffList %}
+        <tr>
+            <td><a data-id="{{user.id}}" href="">{{user.id}}</a></td>
+            <td>{{user.get("mobilePhoneNumber")}}</td>
+            <td>{{user.get("nickName")}}</td>
+            <td>{{user.get("sex") == 1 ? "男" : "女"}}</td>
+            <td>{{user.get("tags")}}</td>
+            <td><a href="#" class="btn btn-default" role="button">查看</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </div>
 </body>
+<script>
+    _inlineCodes(function() {
+        $("#addBtn").on('click', function() {
+
+        })
+    })
+</script>
 {% include "inc/import.html" %}
 </html>
