@@ -3,9 +3,10 @@
  */
 
 var _bower_paths = '../../bower_components';
-
+console.log("main " + _bower_paths)
 requirejs.config({
     paths: {
+        jquery      : _bower_paths + '/jquery/dist/jquery.min',
         angular 	: _bower_paths + '/angular/angular.min',
         ngSanitize	: _bower_paths + '/angular-sanitize/angular-sanitize.min',
         ngCookies   : _bower_paths + '/angular-cookies/angular-cookies.min',
@@ -62,8 +63,8 @@ requirejs.config({
     }
 });
 
-require(['angular', 'core'], function(ng, core){
-
+require(['jquery', 'angular', 'core'], function($, ng, core){
+    console.log("main require")
     $(function(){
 
         ng.forEach(_inlineCodes, function(fn){

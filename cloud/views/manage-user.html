@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% include "inc/_basic.html" %}
+    <title>用户管理</title>
+</head>
+<body style="text-align: center">
+{% include "inc/_nav.html" %}
+<div class="container-fluid" style="padding-top: 100px;">
+    <table class="table table-bordered" id="userTable">
+        <tr>
+            <td>用户Id</td>
+            <td>手机号</td>
+            <td>昵称</td>
+            <td>性别</td>
+            <td>标签</td>
+            <td>操作</td>
+        </tr>
+
+        <script type="text/template" id="userTpl">
+            <tr>
+                <td><a data-id="{{user.objectId}}" href="">{{user.id}}</a></td>
+                <td>{{user.mobile}}</td>
+                <td>{{user.nickName}}</td>
+                <td>{{user.sex == 1 ? "男" : "女"}}</td>
+                <td>{{user.tags}}</td>
+                <td><a href="#" class="btn btn-default" role="button">查看</a></td>
+            </tr>
+        </script>
+    </table>
+</div>
+</body>
+<script>
+    _inlineRun(function() {
+        console.log("_inlineRun...")
+        console.dir(userList)
+        var html = []
+        var tpl = $("#userTpl").html()
+        for(var i = 0; i < userList.length; i++) {
+            html.push(Mustache.render(tpl, userList[i]))
+        }
+        $("#userTable").append(html.join(""))
+    })
+</script>
+{% include "inc/import.html" %}
+</html>

@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(multer()); // for parsing multipart/form-data
 
 // App 全局配置
+//swig.setDefaults({ varControls: ['<%=', '%>'] });
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');    // 设置 template 引擎
 app.set('views','cloud/views');   // 设置模板目录
@@ -33,6 +34,7 @@ require('cloud/routes/post').run(app);
 require('cloud/routes/index').run(app);
 require('cloud/routes/role').run(app);
 require('cloud/routes/login').run(app);
+require('cloud/routes/manageUser').run(app);
 
 require('cloud/routes/error').run(app);
 // 最后，必须有这行代码来使 express 响应 HTTP 请求
