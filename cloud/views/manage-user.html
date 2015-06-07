@@ -16,30 +16,22 @@
             <td>标签</td>
             <td>操作</td>
         </tr>
-
-        <script type="text/template" id="userTpl">
+        {% for user in userList %}
             <tr>
-                <td><a data-id="{{user.objectId}}" href="">{{user.id}}</a></td>
-                <td>{{user.mobile}}</td>
-                <td>{{user.nickName}}</td>
-                <td>{{user.sex == 1 ? "男" : "女"}}</td>
-                <td>{{user.tags}}</td>
+                <td><a data-id="{{user.id}}" href="">{{user.id}}</a></td>
+                <td>{{user.get("mobilePhoneNumber")}}</td>
+                <td>{{user.get("nickName")}}</td>
+                <td>{{user.get("sex") == 1 ? "男" : "女"}}</td>
+                <td>{{user.get("tags")}}</td>
                 <td><a href="#" class="btn btn-default" role="button">查看</a></td>
             </tr>
-        </script>
+        {% endfor %}
     </table>
 </div>
 </body>
 <script>
     _inlineRun(function() {
         console.log("_inlineRun...")
-        console.dir(userList)
-        var html = []
-        var tpl = $("#userTpl").html()
-        for(var i = 0; i < userList.length; i++) {
-            html.push(Mustache.render(tpl, userList[i]))
-        }
-        $("#userTable").append(html.join(""))
     })
 </script>
 {% include "inc/import.html" %}

@@ -9,7 +9,7 @@ exports.run = function(router) {
         new AV.Query(AV.User).find({
             success: function(data) {
                 res.render('manage-user', {
-                    userList: JSON.stringify(data)
+                    userList: data
                 })
             },
             error: function (data, err) {
