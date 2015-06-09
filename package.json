@@ -1,0 +1,11 @@
+{
+  "name": "yankong",
+  "version": "0.0.1",
+  "dependencies": {
+    "gulp":"",
+    "swig":"",
+    "body-parser":"",
+    "cookie-parser":"",
+    "multer":""
+  }
+}
