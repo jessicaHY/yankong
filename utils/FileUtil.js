@@ -2,6 +2,7 @@
  * Created by luojuan on 2015/6/7.
  */
 
+var AV = require('leanengine');
 var fs = require('fs');
 var FileUtil = AV.Object.extend("FileUtil", {
     readFile: function(path, name, callback) {
@@ -18,6 +19,5 @@ var FileUtil = AV.Object.extend("FileUtil", {
         })
     }
 });
-
 
 exports.FileUtil = new FileUtil();

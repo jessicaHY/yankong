@@ -2,7 +2,8 @@
  * Created by lj on 15-6-5.
  */
 
-var ResultJson = require('cloud/utils/resultJson').result;
+var AV = require('leanengine');
+var ResultJson = require('../utils/resultJson').result;
 
 var UserService = AV.Object.extend('UserService', {
     getUser: function( key, value ){

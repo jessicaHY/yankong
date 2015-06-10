@@ -2,9 +2,10 @@
  * Created by lj on 15-6-5.
  */
 
-var QueryService    = require('cloud/service/QueryService').service;
-var UserService     = require('cloud/service/UserService').service;
-var result          = require('cloud/utils/resultJson').result;
+var AV = require('leanengine');
+var QueryService    = require('./QueryService').service;
+var UserService     = require('./UserService').service;
+var result          = require('../utils/resultJson').result;
 
 var RoleService = AV.Object.extend('RoleService', {
     _roles: {},

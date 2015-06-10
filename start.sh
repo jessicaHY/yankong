@@ -1,0 +1,6 @@
+export LC_APP_ID=<urrhz2zptf558xb53tlgl89nsrmyb1u1bqd4w2t86ybncwj9>
+export LC_APP_KEY=<8wluhq3fy7ov4y33e1lojoqzw2gxiucy9p03gmsa6xzjoc3t>
+export LC_APP_MASTER_KEY=<oopnu01418rj7ra97qe9eq2srccl1r2h7uh41m2fl2zgxrcv>
+export LC_APP_PORT=3000
+
+npm start

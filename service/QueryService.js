@@ -2,10 +2,11 @@
  * Created by languid on 14-5-7.
  */
 
-var result          = require('cloud/utils/resultJson').result;
+var AV = require('leanengine');
+var result          = require('../utils/resultJson').result;
 var _               = require('underscore');
-var helper          = require('cloud/utils/helper');
-var OBJECTSTATUS    = require('cloud/utils/const').OBJECTSTATUS;
+var helper          = require('../utils/helper');
+var OBJECTSTATUS    = require('../utils/const').OBJECTSTATUS;
 
 var QueryService = AV.Object.extend('QueryService', {
 

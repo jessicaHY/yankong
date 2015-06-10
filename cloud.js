@@ -1,7 +1,11 @@
-/**
- * Created by lj on 15-6-5.
- */
+var AV = require('leanengine');
 
+/**
+ * 一个简单的云代码方法
+ */
+AV.Cloud.define('hello', function(request, response) {
+  response.success('Hello world!');
+});
 
 AV.Cloud.define("savePost", function(req, res) {
     var token = req.object.get("token");
@@ -19,3 +23,5 @@ AV.Cloud.define("savePost", function(req, res) {
 
 
 })
+
+module.exports = AV.Cloud;

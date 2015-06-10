@@ -1,4 +1,5 @@
 
+var AV = require('leanengine');
 var AclService = AV.Object.extend('AclService', {
     _staffAcl: null,
     _adminAcl: null,
@@ -36,7 +37,6 @@ var AclService = AV.Object.extend('AclService', {
         return acl;
     }
 });
-
 
 
 exports.service = new AclService();

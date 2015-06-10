@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% include "inc/_basic.html" %}
+    <title>管理登录</title>
+</head>
+<body style="text-align: center">
+{% include "inc/_nav.html" %}
+<div class="container">
+    <form method="post" action="" class="center-block" style="padding-top: 100px">
+        <div class="form-group">
+            <label for="mobile">手机号</label>
+            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="手机号">
+        </div>
+        <div class="form-group">
+            <label for="password">密码</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-default">登录</button>
+    </form>
+</div>
+</body>
+{% include "inc/import.html" %}
+</html>

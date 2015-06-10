@@ -1,9 +1,10 @@
 /**
  * Created by lj on 15-6-5.
  */
-var ResultCode = require('cloud/utils/const').ResultCode;
-var ResultMessage = require('cloud/utils/const').ResultMessage;
-var helper = require('cloud/utils/helper');
+var AV = require('leanengine');
+var ResultCode = require('./const').ResultCode;
+var ResultMessage = require('./const').ResultMessage;
+var helper = require('./helper');
 var ResultObject = AV.Object.extend('ResultObject', {
     success: function (object) {
         return {_result: true, data: object};
