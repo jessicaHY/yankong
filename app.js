@@ -38,17 +38,14 @@ app.use(AV.Cloud.CookieSession({ secret: 'yankong', maxAge: 3600000, fetchUser: 
 app.get('/hello', function(req, res) {
   res.render('hello', { message: 'Congrats, you just set up your app!' });
 });
-//require('cloud/routes/post').run(app);
-//require('cloud/routes/index').run(app);
-//require('cloud/routes/role').run(app);
-//require('cloud/routes/login').run(app);
-//require('cloud/routes/manageUser').run(app);
+
 app.use('/', require('./routes/login'));
 app.use('/', require('./routes/index'));
 app.use('/', require('./routes/error'));
 
 app.use('/manage', require('./routes/manageRole'));
 app.use('/manage', require('./routes/manageUser'));
+app.use('/manage', require('./routes/managePost'));
 
 // 如果任何路由都没匹配到，则认为 404
 // 生成一个异常让后面的 err handler 捕获

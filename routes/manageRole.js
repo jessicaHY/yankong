@@ -10,9 +10,9 @@ var restrict = require('../utils/auth').restrict;
  * 工作人员
  */
 router.get('/staff/list', restrict, function(req, res){
-
     new AV.Query(AV.Role).equalTo('name','staff').first({
         success: function( role ){
+            console.dir(arguments)
             if(!role) {
                 res.render('staff', {
                     title: "工作人员",

@@ -3,8 +3,8 @@
  */
 var router = require('express').Router();
 var AV = require('leanengine');
-
 var restrict = require('../utils/auth').restrict;
+
 router.get("/user/list", restrict, function(req, res) {
 
     new AV.Query(AV.User).find({
@@ -18,4 +18,5 @@ router.get("/user/list", restrict, function(req, res) {
         }
     })
 })
+
 module.exports = router;
