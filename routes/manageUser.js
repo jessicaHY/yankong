@@ -4,13 +4,28 @@
 var router = require('express').Router();
 var AV = require('leanengine');
 var restrict = require('../utils/auth').restrict;
+var $ = require('jquery')
 
 router.get("/user/list", restrict, function(req, res) {
 
-    new AV.Query(AV.User).find({
+    var nickName = req.query.nickName;
+    var query = new AV.Query(AV.User);
+    if(nickName) {
+        query.equalTo("nickName", nickName);
+    }
+    query.find({
         success: function(data) {
+            var result = []
+            for(var i = 0; i<data.length; i++) {
+                var d = data[i];
+                d['showGender'] = d.get("sex") == 1 ? "男" : "女";
+                d['showStatus'] = d.get("status") == 0 ? "正常" : "已封禁";
+                d['normal'] = d.get("status") == 0;
+                result.push(d)
+            }
             res.render('manage-user', {
-                userList: data
+                userList: result,
+                nickName: nickName
             })
         },
         error: function (data, err) {
@@ -18,5 +33,24 @@ router.get("/user/list", restrict, function(req, res) {
         }
     })
 })
+
+router.get('/user/del/:id', restrict, function( req, res ){
+    var id = req.params.id;
+    console.log(id)
+    if( id ){
+        AV.Cloud.run('delUser', {id: id}, {
+            success: function(result) {
+                console.dir(result)
+                res.redirect('/manage/user/list' );
+            },
+            error: function(error) {
+                console.dir(arguments)
+                res.redirect('/manage/user/list' );
+            }
+        });
+    }else{
+        res.redirect('/manage/user/list' );
+    }
+});
 
 module.exports = router;

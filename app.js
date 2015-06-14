@@ -19,6 +19,7 @@ app.use(express.static('public'));
 
 // 加载云代码方法
 app.use(cloud);
+app.use(require('./cloud/user'));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded

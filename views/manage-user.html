@@ -7,6 +7,10 @@
 <body style="text-align: center">
 {% include "inc/_nav.html" %}
 <div class="container-fluid" style="padding-top: 100px;">
+    <form class="form-inline" style="float: right" method="" action="">
+        <input type="text" class="form-control" name="nickName" placeholder="昵称" value="{{nickName}}">
+        <button type="submit" class="btn btn-default">搜索</button>
+    </form>
     <table class="table table-bordered" id="userTable">
         <tr>
             <td>用户Id</td>
@@ -14,6 +18,7 @@
             <td>昵称</td>
             <td>性别</td>
             <td>标签</td>
+            <td>状态</td>
             <td>操作</td>
         </tr>
         {% for user in userList %}
@@ -21,9 +26,10 @@
                 <td><a data-id="{{user.id}}" href="">{{user.id}}</a></td>
                 <td>{{user.get("mobilePhoneNumber")}}</td>
                 <td>{{user.get("nickName")}}</td>
-                <td>{{user.get("sex") == 1 ? "男" : "女"}}</td>
+                <td>{{user.showGender}}</td>
                 <td>{{user.get("tags")}}</td>
-                <td><a href="#" class="btn btn-default" role="button">查看</a></td>
+                <td>{{user.showStatus}}</td>
+                <td><a href="/manage/user/del/{{user.id}}" class="btn {% if user.normal %}btn-danger {% else %}btn-default {% endif %}" role="button">{% if user.normal %} 封禁 {% else %} 取消封禁 {% endif %}</a></td>
             </tr>
         {% endfor %}
     </table>
