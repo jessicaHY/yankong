@@ -46,20 +46,20 @@ router.post('/staff/add', restrict, function(req, res){
     }
 });
 
-router.post('/staff/del', restrict, function( req, res ){
-    var id = req.body.id;
+router.get('/staff/del/:id', restrict, function( req, res ){
+    var id = req.params.id;
 
     if( id ){
         RoleService.remove('staff', id).then(function( user ){
 
-            res.send(user);
+            res.redirect('/manage/staff/list' );
         }, function(err){
 
-            res.send(err);
+            res.redirect('/manage/staff/list' );
         });
     }else{
 
-        res.send(false);
+        res.redirect('/manage/staff/list' );
     }
 });
 
