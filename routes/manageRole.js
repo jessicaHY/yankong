@@ -12,17 +12,16 @@ var restrict = require('../utils/auth').restrict;
 router.get('/staff/list', restrict, function(req, res){
     new AV.Query(AV.Role).equalTo('name','staff').first({
         success: function( role ){
-            console.dir(arguments)
-            if(!role) {
-                res.render('staff', {
+            if(!role) {//没权限获取工作人员列表
+                res.render('manage-staff', {
                     title: "工作人员",
                     staffList: []
                 });
                 return
             }
             role.getUsers().query().find().then(function( data ){
-
-                res.render('staff', {
+                //console.dir(data)
+                res.render('manage-staff', {
                     title: "工作人员",
                     staffList: data
                 });
@@ -34,20 +33,20 @@ router.get('/staff/list', restrict, function(req, res){
     });
 });
 
-router.post('/ajax/staff/add', restrict, function(req, res){
-    var name = req.body.username;
+router.post('/staff/add', restrict, function(req, res){
+    var name = req.body.mobile;
     if( name ){
         RoleService.add('staff', 'username', name).then(function( user ){
-            res.send( user );
+            res.redirect('/manage/staff/list' );
         }, function( err ){
-            res.send(err)
+            res.redirect('/manage/staff/list' );
         });
     }else{
-        res.send(false);
+        res.redirect('/manage/staff/list' );
     }
 });
 
-router.post('/ajax/staff/del', restrict, function( req, res ){
+router.post('/staff/del', restrict, function( req, res ){
     var id = req.body.id;
 
     if( id ){

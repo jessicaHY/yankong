@@ -20,6 +20,8 @@ var RoleService = AV.Object.extend('RoleService', {
 
         var q = new AV.Promise();
         q.resolve(this._roles[name]);
+
+        console.dir(q)
         return q;
     },
 
@@ -32,7 +34,6 @@ var RoleService = AV.Object.extend('RoleService', {
     },
 
     _baseEdit: function( type, name, userFiled, userValue ){
-
         if( type != 'remove' && type != 'add' ){
             var q = new AV.Promise();
             q.reject(null);
@@ -44,8 +45,7 @@ var RoleService = AV.Object.extend('RoleService', {
             userFiled = 'objectId';
         }
 
-        return this.getRole(name).then(function(role){
-
+        return new AV.Query(AV.Role).equalTo('name','staff').first().then(function(role){
             return UserService.getUser(userFiled, userValue).then(function( userResult ){
 
                 if( !userResult._result ){

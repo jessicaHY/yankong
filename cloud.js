@@ -18,10 +18,7 @@ AV.Cloud.define("savePost", function(req, res) {
         error: function(error) {
 
         }
-
     })
-
-
 })
 
 AV.Cloud.define("_conversationAdd", function(req, res) {

@@ -8,7 +8,6 @@ router.get('/auth', function(req, res){
     res.render('login', {
         title: '登录'
     });
-
 });
 
 router.post('/auth', function(req, res){
@@ -19,8 +18,12 @@ router.post('/auth', function(req, res){
             //res.cookie('uid', user.id);
             res.redirect( req.params.backurl || '/' );
         },function(err){
-            console.dir(arguments)
-            res.redirect('/auth');
+            res.render('login', {
+                mobile: req.body.mobile,
+                password: req.body.password,
+                errMsg: "账号密码输入错误，请重新输入"
+
+            });
         });
 });
 

@@ -7,8 +7,10 @@
 <body style="text-align: center">
 {% include "inc/_nav.html" %}
 <div class="container-fluid" style="padding-top: 60px;">
-   <a class="btn btn-default" href="javascript:;" role="button" id="addBtn">添加</a>
-    {{staffList}} aaaa
+    <form class="form-inline" style="float: right" method="post" action="/manage/staff/add">
+        <input type="text" class="form-control" name="mobile" placeholder="手机号">
+        <button type="submit" class="btn btn-default">添加成员</button>
+    </form>
     <table class="table table-bordered" id="userTable">
         <tr>
             <td>用户Id</td>
