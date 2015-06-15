@@ -29,7 +29,7 @@
                 <td>{{user.showGender}}</td>
                 <td>{{user.get("tags")}}</td>
                 <td>{{user.showStatus}}</td>
-                <td><a href="/manage/user/del/{{user.id}}" class="btn {% if user.normal %}btn-danger {% else %}btn-default {% endif %}" role="button">{% if user.normal %} 封禁 {% else %} 取消封禁 {% endif %}</a></td>
+                <td><button onclick="changeUserStatus('{{user.id}}')" class="btn {% if user.normal %}btn-danger {% else %}btn-default {% endif %}" role="button">{% if user.normal %} 封禁 {% else %} 取消封禁 {% endif %}</button></td>
             </tr>
         {% endfor %}
     </table>
@@ -37,7 +37,12 @@
 </body>
 <script>
     _inlineRun(function() {
-        $.ajax()
+        console.log("_inlineRun")
+        window.changeUserStatus = function changeUserStatus(userId) {
+            $.get("/manage/ajax/user/del/" + userId, function(data) {
+                console.dir(data)
+            })
+        }
     })
 </script>
 {% include "inc/import.html" %}

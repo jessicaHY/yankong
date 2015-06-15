@@ -34,22 +34,22 @@ router.get("/user/list", restrict, function(req, res) {
     })
 })
 
-router.get('/user/del/:id', restrict, function( req, res ){
+router.get('/ajax/user/del/:id', restrict, function( req, res ){
     var id = req.params.id;
-    console.log(id)
+    console.log(id);
     if( id ){
         AV.Cloud.run('delUser', {id: id}, {
             success: function(result) {
                 console.dir(result)
-                res.redirect('/manage/user/list' );
+                res.send(result)
             },
             error: function(error) {
                 console.dir(arguments)
-                res.redirect('/manage/user/list' );
+                res.send(error);
             }
         });
     }else{
-        res.redirect('/manage/user/list' );
+        res.send(false);
     }
 });
 
