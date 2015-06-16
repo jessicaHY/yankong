@@ -9,6 +9,7 @@ var UserService     = require('./UserService').service;
 var result          = require('../utils/resultJson').result;
 var AclService      = require('./AclService').service;
 var _               = require('underscore');
+var OBJECTSTATUS    = require('../utils/const').OBJECTSTATUS;
 
 var CrabTreeNode = AV.Object.extend("CrabTreeNode", {
     nodeName: null,
@@ -242,9 +243,18 @@ var CrabService = AV.Object.extend("CrabService" , {
     },
 
     listCrab: function(page, count) {
-        return QueryService.list( this.CrabModel, page, count, {
-            status: OBJECTSTATUS.NORMAL
-        });
+        var query = new AV.Query(this.CrabModel);
+        query.equalTo('status', OBJECTSTATUS.NORMAL);
+        query.skip((page - 1) * count);
+        query.limit(page);
+        return query.find().then(function(data) {
+                console.log(data)
+                return data
+            }, function(err) {
+                console.log(err)
+                return err
+            }
+        )
     },
     addCrab: function(name) {
         var self = this;

@@ -47,6 +47,7 @@ app.use('/', require('./routes/error'));
 app.use('/manage', require('./routes/manageRole'));
 app.use('/manage', require('./routes/manageUser'));
 app.use('/manage', require('./routes/managePost'));
+app.use('/manage', require('./routes/manageCrab'));
 
 // 如果任何路由都没匹配到，则认为 404
 // 生成一个异常让后面的 err handler 捕获

@@ -62,7 +62,6 @@ var QueryService = AV.Object.extend('QueryService', {
         if( !model ){
             return AV.Promise.error( result.failParamError() );
         }
-
         var equalDetail = {}, name;
 
         name = model.name;
@@ -220,12 +219,10 @@ var QueryService = AV.Object.extend('QueryService', {
     },
 
     list: function( model, page, count, prop, extra ){
-
         if( typeof prop == 'function' ){
             extra = prop;
             prop = null;
         }
-
         return this.find( model, prop, function(query){
             if( typeof page != 'object') {
                 count = count || 10;
