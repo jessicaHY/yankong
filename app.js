@@ -48,6 +48,7 @@ app.use('/manage', require('./routes/manageRole'));
 app.use('/manage', require('./routes/manageUser'));
 app.use('/manage', require('./routes/managePost'));
 app.use('/manage', require('./routes/manageCrab'));
+app.use('/manage', require('./routes/manageRecommend'));
 
 // 如果任何路由都没匹配到，则认为 404
 // 生成一个异常让后面的 err handler 捕获
@@ -57,7 +58,8 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// error handlers
+
+// error handler
 // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
