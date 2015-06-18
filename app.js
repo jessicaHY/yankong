@@ -58,8 +58,7 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-
-// error handler
+// error handlers
 // 如果是开发环境，则将异常堆栈输出到页面，方便开发调试
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
