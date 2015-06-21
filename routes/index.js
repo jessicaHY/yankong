@@ -8,6 +8,8 @@ var Post = AV.Object.extend("Post");
 var UserExtend = AV.Object.extend("UserExtend");
 var restrict = require('../utils/auth').restrict;
 var result          = require('../utils/resultJson').result;
+var CrabTreeHandler = require('../service/CrabService').CrabTreeHandler;
+var AclService = require('../service/AclService').service;
 
 router.get('/', restrict, function(req, res){
     var user = req.AV.user;
@@ -22,7 +24,7 @@ router.post('/upload/post', function(req, res) {
     //console.log("token====" + token)
     var content = req.body.content;
     var seconds = req.body.seconds;
-    content = filterCrabedContent(content);
+    content = CrabTreeHandler.filterCrabContent(content);
 
     var param = {
         content: content,
@@ -36,7 +38,8 @@ router.post('/upload/post', function(req, res) {
     AV.User.become(token, {
         success: function(user) {
             //console.log(user)
-            param.user = user
+            param.user = user;
+            param.acl = AclService.selfStaffWrite(user.id);
             FileUtil.readFile(imageFile.path, imageFile.name, function(imgFile, err) {
                 if(err) {
                     res.json(err)
@@ -77,6 +80,7 @@ function addPost(param, callback) {
         post.set("seconds", param.seconds);
     }
     post.set("content", param.content);
+    post.setACL(param.acl);
     post.save({
         favoriteCount: 0, replyCount: 0
     }, {
@@ -112,13 +116,13 @@ function incrPostCount(user) {
 router.post("/settings", function(req, res) {
     var token = req.body.token;
     var nickName = req.body.nickName;
-    nickName = filterCrabedContent(nickName);
+    nickName = CrabTreeHandler.filterCrabContent(nickName);
     var sex = req.body.sex;
     var tagsArray = req.body.tagsArray;
     var tags = [];
 
     var introduce = req.body.introduce;
-    introduce = filterCrabedContent(introduce);
+    introduce = CrabTreeHandler.filterCrabContent(introduce);
 
     AV.User.become(token).then(function(user) {
         user.set("sex", sex);
@@ -126,7 +130,7 @@ router.post("/settings", function(req, res) {
         user.set('introduce', introduce);
         if(sex == 1) {
             for(var i = 0; i<tagsArray.length; i++) {
-                var t = filterCrabedContent(tagsArray[i]);
+                var t = CrabTreeHandler.filterCrabContent(tagsArray[i]);
                 if(t == '' || t.trim() == '') {
                     continue;
                 }
@@ -144,29 +148,20 @@ router.post("/settings", function(req, res) {
     })
 })
 
-function checkNickName(nickname) {
-    if(!nickname || nickname.length < 2 || nickname.length > 14) {
-        console.log("nickname length error")
-        return false;
-    }
-    if(!nickname.match(/^(?![0-9]+$)[\w\u4e00-\u9fa5]+/)) {//不能全部是数字
-        console.log("nickname geshi error")
-        return false;
-    }
-    if(isCrabedContent(nickname)) {
-        console.log("nickname crab error")
-        return false;
-    }
-    return true;
-}
-
-function filterCrabedContent(content) {
-    var crabList = CrabTreeHandler.getCrabList(content);
-    console.error(crabList);
-    crabList.forEach(function(crab) {
-        content = content.split(crab).join('')
-    })
-    return content;
-}
+//function checkNickName(nickname) {
+//    if(!nickname || nickname.length < 2 || nickname.length > 14) {
+//        console.log("nickname length error")
+//        return false;
+//    }
+//    if(!nickname.match(/^(?![0-9]+$)[\w\u4e00-\u9fa5]+/)) {//不能全部是数字
+//        console.log("nickname geshi error")
+//        return false;
+//    }
+//    if(isCrabedContent(nickname)) {
+//        console.log("nickname crab error")
+//        return false;
+//    }
+//    return true;
+//}
 
 module.exports = router;

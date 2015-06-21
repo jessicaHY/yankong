@@ -157,6 +157,14 @@ var CrabTreeHandler = AV.Object.extend("CrabTreeHandler", {}, {
     filterKey: function(key) {
         return key.replaceAll(/\*/, /\\*/).replaceAll(/\?/, /\\?/).replaceAll(/\+/, /\\+/);
     },
+    filterCrabContent: function(content) {
+        var crabList = this.getCrabList(content);
+        console.error(crabList);
+        crabList.forEach(function(crab) {
+            content = content.split(crab).join('')
+        })
+        return content;
+    },
     getCrabList : function(content) {
         if(!content || content == ''){
             return [];
