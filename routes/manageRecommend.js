@@ -17,10 +17,7 @@ router.get("/recommend/list", restrict, function(req, res) {
     query.find({
         success: function(data) {
             res.render('manage-recommend', {
-                postList: data.map(function( rec ){
-                    console.log( rec.get('user').get('nickName'));
-                    return rec;
-                })
+                postList: data
             })
         },
         error: function (data, err) {
@@ -28,7 +25,6 @@ router.get("/recommend/list", restrict, function(req, res) {
         }
     })
 })
-
 router.get("/recommend/:rid", restrict, function(req, res) {
     var query = new AV.Query(Recommend);
     query.get(req.params.rid).then(function(r) {
