@@ -29,7 +29,7 @@ AV.Cloud.define("delUser", function(req, res) {
 AV.Cloud.onLogin(function(request, response) {
     // 因为此时用户还没有登录，所以用户信息是保存在 request.object 对象中
     console.log("on login:", request.object);
-    if (request.object.get('username') == 'noLogin') {
+    if (request.object.get('status') == -1) {
         // 如果是 error 回调，则用户无法登录（收到 401 响应）
         response.error('Forbidden');
     } else {
