@@ -7,6 +7,9 @@
 <body style="text-align: center">
 {% include "inc/_nav.html" %}
 <div class="container-fluid" style="padding-top: 100px;">
+    <div style="float: right">
+        <a href="/manage/recommend1/add" class="btn btn-default">添加</a>
+    </div>
     <table class="table table-bordered" id="postTable">
         <tr>
             <td>标题</td>
@@ -16,7 +19,7 @@
             <td>操作</td>
         </tr>
         {% for post in postList %}
-        <tr>
+        <tr id="p{{post.id}}">
             <td>{{post.get('title')}}</td>
             <td>
                 {% if post.get('image') %}
@@ -32,7 +35,10 @@
                 {% set user = post.get('user') %}
                 {{user.get('nickName')}}
             </td>
-            <td><a href="/manage/recommend/{{post.id}}" class="btn btn-default" role="button">查看</a></td>
+            <td>
+                <a href="/manage/recommend/{{post.id}}" class="btn btn-default" role="button">查看</a>
+                <button data-id="{{post.id}}" class="btn btn-danger delRecommend">删除</button>
+            </td>
         </tr>
         {% endfor %}
 
@@ -41,6 +47,18 @@
 </body>
 <script>
     _inlineRun(function() {
+        $(".delRecommend").click(function() {
+            var $this = $(this);
+            var rid = $this.data("id")
+            $.get('/manage/ajax/recommend/del/' + rid, function(data) {
+//                console.log(data.data.objectId)
+                if(data._result) {
+                    $("#p" + data.data.objectId).remove();
+                } else {
+                    alert(data.data.message)
+                }
+            })
+        })
     })
 </script>
 {% include "inc/import.html" %}

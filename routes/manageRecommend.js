@@ -9,6 +9,7 @@ var Recommend = AV.Object.extend("Recommend");
 var AclService      = require('../service/AclService').service;
 var OBJECTSTATUS    = require('../utils/const').OBJECTSTATUS;
 var FileUtil = require('../utils/FileUtil').FileUtil;
+var result          = require('../utils/resultJson').result;
 
 router.get("/recommend/list", restrict, function(req, res) {
     var query = new AV.Query(Recommend);
@@ -43,12 +44,13 @@ router.get("/ajax/recommend/del/:rid", restrict, function(req, res) {
     query.get(req.params.rid).then(function(r) {
         r.set("status", OBJECTSTATUS.DELETED);
         r.save().then(function(r) {
-            res.send(r)
+            res.send(result.success(r))
         }, function(error) {
-            res.send(error)
+            res.send(result.failServerFail())
         })
     }, function(error) {
-        res.send(error)
+        console.log(error)
+        res.send(reuslt.failServerFail())
     })
 })
 
