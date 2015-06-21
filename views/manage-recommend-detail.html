@@ -9,10 +9,20 @@
 <div class="container" style="padding-top: 100px">
 
     <div class="center-block">
-        <h1>{{obj.get("title")}}</h1>
-        <img src="{{obj.get('image')}}" width="100%" height="100%"/>
-        <p class="lead">
-            {{obj.get("content")}}
+        标题：<h1>{{obj.get("title")}}</h1>
+
+        {% if obj.get('image') %}
+        <img src="{{obj.get('image')._url}}" />
+        {% endif %}
+
+        简介：<p class="lead">
+            {% if obj.get('content') %}
+            {{obj.get('content')}}
+            {% endif %}
+        </p>
+        编辑：<p class="lead">
+            {% set user = obj.get('user') %}
+            {{user.get('nickName')}}
         </p>
     </div>
 </div>

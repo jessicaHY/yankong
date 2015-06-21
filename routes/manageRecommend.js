@@ -12,7 +12,6 @@ var FileUtil = require('../utils/FileUtil').FileUtil;
 
 router.get("/recommend/list", restrict, function(req, res) {
     var query = new AV.Query(Recommend);
-    query.include();
     query.include(['user','image']);
     query.find({
         success: function(data) {
@@ -27,9 +26,14 @@ router.get("/recommend/list", restrict, function(req, res) {
 })
 router.get("/recommend/:rid", restrict, function(req, res) {
     var query = new AV.Query(Recommend);
+    query.include(['user','image']);
     query.get(req.params.rid).then(function(r) {
-        res.send(r)
+        //console.log(r)
+        res.render('manage-recommend-detail', {
+            obj: r
+        })
     }, function(error) {
+        console.dir(arguments)
         res.send(error)
     })
 })
