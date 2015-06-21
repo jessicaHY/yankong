@@ -8,7 +8,7 @@
 {% include "inc/_nav.html" %}
 <div class="container" style="padding-top: 100px">
 
-    <form method="post" action="/manage/recommend/add" class="center-block" style="padding-top: 100px">
+    <form method="post" action="/manage/recommend/add" class="center-block" style="padding-top: 100px" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">标题</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="标题">
@@ -17,7 +17,7 @@
             <label for="image">文件</label>
             <input type="file" class="" id="image" name="image">
         </div>
-        <textarea class="form-control" rows="3">简介</textarea>
+        <textarea class="form-control" rows="3" name="content">简介</textarea>
         <button type="submit" class="btn btn-default">添加</button>
     </form>
 </div>
