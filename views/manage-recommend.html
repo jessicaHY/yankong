@@ -11,19 +11,26 @@
         <tr>
             <td>标题</td>
             <td>图片</td>
-            <td>内容</td>
+            <td>昵称</td>
             <td>编辑</td>
             <td>操作</td>
         </tr>
         {% for post in postList %}
-            <tr>
-                <td>{{post.title}}</td>
-                <td><img src='#'>{{post.image.url}}</td>
-                <td>{{post.content}}</td>
-                <td>{{post.user.get("nickName")}}-{{post.user.nickName}}</td>
-                <td><a href="/manage/recommend/'{{post.id}}'" class="btn btn-default" role="button">查看</a></td>
-            </tr>
+        <tr>
+            <td>{{post.get('title')}}</td>
+            <td>
+                {% if post.get('image') %}
+                    {{post.get('image')._url}}
+                {% endif %}
+            </td>
+            <td>
+                {{ post.get('user').attributes.nickName }}
+            </td>
+            <td><a href="/manage/recommend/'{{post.id}}'" class="btn btn-default" role="button">查看</a></td>
+            <td></td>
+        </tr>
         {% endfor %}
+
     </table>
 </div>
 </body>

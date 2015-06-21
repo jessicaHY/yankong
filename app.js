@@ -28,6 +28,9 @@ app.use(multer()); // for parsing multipart/form-data
 app.use(AV.Cloud.CookieSession({ secret: 'yankong', maxAge: 3600000, fetchUser: true }));
 
 // App 全局配置
+swig.setDefaults({
+    cache: false
+})
 //swig.setDefaults({ varControls: ['<%=', '%>'] });
 
 //app.use(cookieParser('yankong'));

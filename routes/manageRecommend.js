@@ -12,16 +12,15 @@ var FileUtil = require('../utils/FileUtil').FileUtil;
 
 router.get("/recommend/list", restrict, function(req, res) {
     var query = new AV.Query(Recommend);
-    query.include("user");
-    query.include("image");
+    query.include();
+    query.include(['user','image']);
     query.find({
         success: function(data) {
-            var result = []
-            for(var i = 0; i<data.length; i++) {
-                result.push(data[i].toJSON());
-            }
             res.render('manage-recommend', {
-                postList: result
+                postList: data.map(function( rec ){
+                    console.log( rec.get('user').get('nickName'));
+                    return rec;
+                })
             })
         },
         error: function (data, err) {
