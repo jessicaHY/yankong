@@ -266,30 +266,64 @@ var CrabService = AV.Object.extend("CrabService" , {
     },
     addCrab: function(name) {
         var self = this;
-        if(!name || name.length < 2) {
+        if(!name || name.trim().length < 2) {
             return AV.Promise.error(result.failParamError());
         }
+        var crab = new this.CrabModel();
+        crab.set('name', name);
+        crab.set('status', OBJECTSTATUS.NORMAL);
+        crab.set('ACL', AclService.staffWrite());
 
-        return QueryService.add( this.CrabModel, {
-            name: name,
-            status: OBJECTSTATUS.NORMAL,
-            ACL : AclService.staffWrite()
-        }, {
-            name: name
-        }, true);
+        return crab.save(null, {
+            success: function(obj) {
+                return obj
+            },
+            error: function(obj, err) {
+                return err
+            }
+        })
     },
     editCrab: function(objectId, name) {
-        if(!name || name.length == 0) {
+        if(!name || name.trim().length < 2) {
             return AV.Promise.error(result.failParamError());
         }
-
-        return QueryService.update(this.CrabModel, objectId, {
-            name: name,
-            status: OBJECTSTATUS.NORMAL
-        });
+        var query = new AV.Query(this.CrabModel);
+        return query.get(objectId, {
+            success: function(crab) {
+                crab.set('name', name);
+                crab.set('status', OBJECTSTATUS.NORMAL);
+                return crab.save(null, {
+                    success: function(obj) {
+                        return obj
+                    },
+                    error: function(obj, err) {
+                        console.log(arguments)
+                        return err
+                    }
+                });
+            }, error: function(crab, err) {
+                return AV.Promise.error( result.failParamError() );
+            }
+        })
     },
     delCrab: function(objectId) {
-        return QueryService.remove(this.CrabModel, objectId);
+        var query = new AV.Query(this.CrabModel);
+        return query.get(objectId, {
+            success: function(crab) {
+                crab.set('status', OBJECTSTATUS.DELETED);
+                return crab.save(null, {
+                    success: function(obj) {
+                        return obj
+                    },
+                    error: function(obj, err) {
+                        console.log(arguments)
+                        return err
+                    }
+                });
+            }, error: function(crab, err) {
+                return AV.Promise.error( result.failParamError() );
+            }
+        })
     },
     getCrab: function(key, value) {
         return QueryService.get(this.CrabModel, key, value);
@@ -305,10 +339,10 @@ var CrabService = AV.Object.extend("CrabService" , {
 
 var service = new CrabService();
 
-//service.addCrab('长狗专卖\r').then(function( crab ){
+//service.editCrab('5580c66ee4b02f99238e6430','挂羊头卖狗肉').then(function( crab ){
 //    console.log( crab )
-//}, function( err ){
-//    console.log( err )
+//}, function(crab, err ){
+//    console.log( arguments )
 //});
 
 exports.service = service;

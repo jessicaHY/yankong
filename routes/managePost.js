@@ -23,6 +23,7 @@ router.get("/post/list", restrict, function(req, res) {
         },
         error: function (data, err) {
             console.dir(argument)
+            res.send(error);
         }
     })
 })

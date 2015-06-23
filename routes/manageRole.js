@@ -21,9 +21,17 @@ router.get('/staff/list', restrict, function(req, res){
             }
             role.getUsers().query().find().then(function( data ){
                 //console.dir(data)
+                var result = []
+                for(var i = 0; i<data.length; i++) {
+                    var d = data[i];
+                    d['showGender'] = d.get("sex") == 1 ? "男" : "女";
+                    d['showStatus'] = d.get("status") == 0 ? "正常" : "已封禁";
+                    d['normal'] = d.get("status") == 0;
+                    result.push(d)
+                }
                 res.render('manage-staff', {
                     title: "工作人员",
-                    staffList: data
+                    staffList: result
                 });
             })
         },

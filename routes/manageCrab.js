@@ -17,13 +17,27 @@ router.get("/ajax/crab/add", function(req, res) {
 });
 
 router.get("/crab/list", function(req, res) {
-    return CrabService.listCrab(req.query.count || 10, req.query.page || 1).then(function(obj) {
-        console.dir(arguments)
-        res.send( result.success(obj) );
-    }, function(error) {
-        console.error(error);
-        res.send(error);
-    })
+    var name = req.query.name;
+    if(name) {
+        return CrabService.getCrab('name', name).then(function(data) {
+            res.render('manage-crab', {
+                postList: data
+            })
+        }, function(error) {
+            console.error(error);
+            res.send(error);
+        })
+    } else {
+        return CrabService.listCrab(req.query.count || 10, req.query.page || 1).then(function(data) {
+            //console.dir(arguments)
+            res.render('manage-crab', {
+                postList: data
+            })
+        }, function(error) {
+            console.error(error);
+            res.send(error);
+        })
+    }
 });
 
 router.get("/ajax/crab/edit/:crabId", function(req, res) {
@@ -45,7 +59,7 @@ router.get("/ajax/crab/del/:crabId", function(req, res) {
 });
 
 router.get('/crab/upload', function(req, res) {
-    res.render('manage/crab/crab_upload', {
+    res.render('manage-crab-file', {
         title: '敏感词'
     });
 });
@@ -62,10 +76,9 @@ router.post('/crab/upload', function(req, res) {
             cs.forEach(function(c) {
                 CrabService.addCrab(c);
             });
-            res.send(cs);
+            res.redirect('/manage/staff/list' );
         })
     } else
         res.send("please select a file");
 })
-
 module.exports = router;

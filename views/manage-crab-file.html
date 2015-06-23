@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    {% include "inc/_basic.html" %}
+    <title>管理首页</title>
+</head>
+<body style="text-align: center">
+{% include "inc/_nav.html" %}
+<div class="container" style="padding-top: 100px">
+
+    <form method="post" action="/manage/crab/upload" class="center-block" style="padding-top: 100px" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="crabFile">敏感词文件</label>
+            <input type="file" class="form-control" id="crabFile" name="crabFile">
+        </div>
+        <button type="submit" class="btn btn-primary">提交</button>
+    </form>
+</div>
+</body>
+{% include "inc/import.html" %}
+</html>

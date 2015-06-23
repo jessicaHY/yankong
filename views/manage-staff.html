@@ -25,7 +25,7 @@
             <td><a data-id="{{user.id}}" href="">{{user.id}}</a></td>
             <td>{{user.get("mobilePhoneNumber")}}</td>
             <td>{{user.get("nickName")}}</td>
-            <td>{{user.get("sex") == 1 ? "男" : "女"}}</td>
+            <td>{{user.showGender}}</td>
             <td>{{user.get("tags")}}</td>
             <td><a href="/manage/staff/del/{{user.id}}" class="btn btn-danger" role="button">删除</a></td>
         </tr>
